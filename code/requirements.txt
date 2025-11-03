@@ -41,3 +41,9 @@ psycopg2-binary==2.9.7
 # Jupyter for development
 jupyter==1.0.0
 ipykernel==6.25.1
+
+scikit-learn
+pandas
+numpy
+fastapi
+uvicorn
