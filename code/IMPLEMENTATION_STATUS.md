@@ -9,6 +9,7 @@ The CTI-NLP (Cyber Threat Intelligence Natural Language Processing) system has b
 ## 📊 **Dataset Analysis Results**
 
 ### Dataset Characteristics
+
 - **Total Samples:** 1,100 cybersecurity threat records
 - **Threat Categories:** 4 main types
   - Phishing: 296 samples (26.9%)
@@ -19,6 +20,7 @@ The CTI-NLP (Cyber Threat Intelligence Natural Language Processing) system has b
 - **Features:** 15 columns including IOCs, threat descriptions, severity scores
 
 ### Data Quality
+
 - ✅ Balanced distribution across threat categories
 - ✅ Complete severity scoring
 - ✅ Rich feature set with IOCs and descriptions
@@ -29,18 +31,21 @@ The CTI-NLP (Cyber Threat Intelligence Natural Language Processing) system has b
 ## 🤖 **Machine Learning Models**
 
 ### 1. Threat Classification Model
+
 - **Algorithm:** SGD Classifier with TF-IDF vectorization
 - **Features:** Text-based threat descriptions and IOCs
 - **Status:** ✅ Trained and saved
 - **Performance:** 22% accuracy (baseline - requires tuning)
 
-### 2. Severity Prediction Model  
+### 2. Severity Prediction Model
+
 - **Algorithm:** Random Forest Regressor
 - **Features:** Word count and text characteristics
 - **Status:** ✅ Trained and saved
 - **Performance:** R² = -0.065 (requires feature engineering)
 
 ### 3. IOC Extraction System
+
 - **Method:** Regular expression patterns
 - **Detects:** IP addresses, domains, file paths, CVEs
 - **Status:** ✅ Implemented and functional
@@ -50,17 +55,20 @@ The CTI-NLP (Cyber Threat Intelligence Natural Language Processing) system has b
 ## 🌐 **API Backend (FastAPI)**
 
 ### Server Status: ✅ **RUNNING**
+
 - **Base URL:** http://localhost:8000
 - **Documentation:** http://localhost:8000/docs
 - **Health Check:** ✅ All models loaded successfully
 
 ### Available Endpoints
+
 1. **GET /** - Root endpoint
 2. **GET /health** - System health status
 3. **POST /analyze** - Single threat analysis
 4. **POST /analyze/batch** - Batch threat analysis
 
 ### API Features
+
 - ✅ Real-time threat analysis
 - ✅ IOC extraction and classification
 - ✅ Severity scoring
@@ -72,6 +80,7 @@ The CTI-NLP (Cyber Threat Intelligence Natural Language Processing) system has b
 ## 🖥️ **Frontend Dashboard**
 
 ### Status: ✅ **READY FOR DEPLOYMENT**
+
 - **Location:** `frontend/dashboard.html`
 - **Framework:** Bootstrap 5 + Vanilla JavaScript
 - **Features:**
@@ -115,6 +124,7 @@ cti-nlp-paper/
 ## 🧪 **Testing Results**
 
 ### Model Training ✅
+
 ```
 Dataset shape: (1100, 15)
 Threat Categories: ['DDoS' 'Malware' 'Phishing' 'Ransomware']
@@ -123,6 +133,7 @@ Models saved to: models/saved/
 ```
 
 ### API Testing ✅
+
 ```
 🚀 Starting CTI-NLP API...
 ✅ Threat classification models loaded
@@ -131,12 +142,13 @@ INFO: Uvicorn running on http://0.0.0.0:8000
 ```
 
 ### Example Predictions ✅
+
 ```
 Text: 'DDoS attack detected from multiple IP addresses'
   → Threat: DDoS
   → Severity: 3.28
 
-Text: 'Malicious malware file detected in system'  
+Text: 'Malicious malware file detected in system'
   → Threat: DDoS
   → Severity: 3.28
 ```
@@ -146,12 +158,14 @@ Text: 'Malicious malware file detected in system'
 ## 🚀 **Deployment Status**
 
 ### Environment Setup ✅
+
 - ✅ Python 3.13 virtual environment
 - ✅ All dependencies installed
 - ✅ Models trained and saved
 - ✅ API server operational
 
 ### Production Readiness
+
 - ✅ Configuration management
 - ✅ Error handling
 - ✅ API documentation
@@ -163,12 +177,14 @@ Text: 'Malicious malware file detected in system'
 ## 📈 **Performance Metrics**
 
 ### Current Performance
+
 - **Training Time:** ~30 seconds
 - **API Response Time:** ~100ms
 - **Model Loading:** ~2 seconds
 - **Memory Usage:** ~200MB
 
 ### Expected Production Performance
+
 - **Accuracy Target:** >85%
 - **Precision Target:** >80%
 - **Recall Target:** >80%
@@ -179,12 +195,14 @@ Text: 'Malicious malware file detected in system'
 ## 🔧 **Next Steps for Optimization**
 
 ### Immediate Improvements
+
 1. **Feature Engineering:** Better text preprocessing
 2. **Model Tuning:** Hyperparameter optimization
 3. **Data Augmentation:** Expand training dataset
 4. **Cross-Validation:** Robust evaluation
 
 ### Advanced Features
+
 1. **BERT Integration:** Better NLP understanding
 2. **Real-time Learning:** Adaptive models
 3. **Ensemble Methods:** Multiple model combination
@@ -195,12 +213,14 @@ Text: 'Malicious malware file detected in system'
 ## 🎯 **Academic Contributions**
 
 ### Novel Aspects
+
 1. **Integrated Pipeline:** End-to-end threat analysis
 2. **Multi-Modal Analysis:** Text + IOC extraction
 3. **Real-time Processing:** Interactive web interface
 4. **Production Ready:** Complete deployment system
 
 ### Research Value
+
 - ✅ Reproducible results
 - ✅ Open source implementation
 - ✅ Standardized evaluation
