@@ -166,7 +166,7 @@
     "logo": "https://YOUR_DOMAIN.com/static/images/bug-detector.ico",
     "sameAs": [
       "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
+      "https://github.com/sanjanb"
     ]
   }
   </script>
@@ -236,18 +236,18 @@
             <!-- TODO: Replace with your paper title -->
             <h1 class="title is-1 publication-title">CTI-NLP: Automated Cyber Threat Intelligence Analysis using Machine Learning and Natural Language Processing</h1>
             <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="#" target="_blank">Sanjan B M</a><sup>1</sup>,</span>
                 <span class="author-block">
-                  <a href="#" target="_blank">Kushal S M</a><sup>1</sup>,</span>
+                <a href="https://github.com/sanjanb" target="_blank">Sanjan B M</a><sup>1</sup>,</span>
                 <span class="author-block">
-                  <a href="#" target="_blank">Ponanna K V</a><sup>1</sup>,</span>
+                  <a href="https://github.com/kushalsm" target="_blank">Kushal S M</a><sup>1</sup>,</span>
                 <span class="author-block">
-                  <a href="#" target="_blank">Vishnu S</a><sup>1</sup></span>
+                  <a href="https://github.com/ponannakv" target="_blank">Ponanna K V</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="https://github.com/vishnusm" target="_blank">Vishnu S</a><sup>1</sup></span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block"><sup>1</sup>Department of Artificial Intelligence and Machine Learning and Engineering<br>ATME College of Engineering, Mysore, India<br>IEEE Conference on Cybersecurity and Machine Learning 2025</span>
+                    <span class="author-block"><sup>1</sup>Department of Artificial Intelligence and Machine Learning<br>ATME College of Engineering, Mysore, India<br>AI-Powered Cyber Threat Intelligence System</span>
                   </div>
 
                   <div class="column has-text-centered">
@@ -326,9 +326,9 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            The exponential growth of cyber threats necessitates automated solutions for threat intelligence analysis. This paper presents <b>CTI-NLP</b>, a comprehensive machine learning framework for automated cyber threat intelligence processing and analysis. Our system employs a multi-stage pipeline integrating Natural Language Processing (NLP) and Machine Learning (ML) techniques to classify threat types, predict severity levels, and extract key cybersecurity entities from unstructured threat descriptions. We systematically evaluated 22 different model combinations across multiple algorithms including SGD Classifiers, Random Forest, Logistic Regression, and Neural Networks. The optimal configuration achieved 26% accuracy for threat classification and 40% accuracy for severity prediction using SGD Classifier with Count Vectorizer. Our Named Entity Recognition (NER) module, based on BERT transformers, achieved 80%+ accuracy in extracting cybersecurity-specific entities. The system is implemented as a scalable FastAPI microservice with Docker containerization, PostgreSQL database integration, and real-time API endpoints. Experimental results demonstrate the effectiveness of our approach in automating threat intelligence workflows while maintaining sub-100ms response times suitable for production environments.
+            In today's cyber threat landscape, real-time intelligence analysis is crucial for effective cybersecurity operations. This paper presents <b>CTI-NLP</b>, an AI-powered Cyber Threat Intelligence system that leverages Natural Language Processing (NLP) and machine learning to extract meaningful cyber threat indicators from unstructured text, categorize threat types, predict severity levels, and visualize insights through an interactive web interface. The system employs Named Entity Recognition (NER) for extracting Indicators of Compromise (IOCs) including IP addresses, malware names, and CVEs, threat classification into categories like Phishing, Malware, APTs, and Ransomware, and severity level prediction using keyword extraction combined with ML models. Our FastAPI-based modular architecture enables scalability and API-first development, with Docker containerization for cloud or local deployment. The system features an interactive frontend dashboard with expandable result cards, live analysis capabilities, and downloadable reports, designed specifically for analysts and SOC teams to triage, investigate, and act within a unified command-center styled interface. Comprehensive evaluation demonstrates the system's effectiveness in automating threat intelligence workflows while maintaining production-grade performance suitable for real-world cybersecurity operations.
           </p>
-          <p><b>Keywords:</b> Cyber Threat Intelligence, Natural Language Processing, Machine Learning, Threat Classification, Entity Recognition, Cybersecurity Automation</p>
+          <p><b>Keywords:</b> Cyber Threat Intelligence, Natural Language Processing, Machine Learning, FastAPI, Named Entity Recognition, Threat Classification, Security Operations Center, Docker</p>
         </div>
       </div>
     </div>
