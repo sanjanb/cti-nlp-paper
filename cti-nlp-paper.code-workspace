@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "../cti-nlp-system"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "cti-nlp-paper"
+  }
+}
