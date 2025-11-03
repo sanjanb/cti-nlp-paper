@@ -1,415 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CTI-NLP Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --success-color: #16a34a;
-            --warning-color: #d97706;
-            --danger-color: #dc2626;
-            --dark-color: #1f2937;
-        }
-        
-        body {
-            background-color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-        }
-        
-        .analysis-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .entity-badge {
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.85em;
-            margin: 2px;
-            display: inline-block;
-        }
-        
-        .entity-ip { background-color: #3b82f6; color: white; }
-        .entity-email { background-color: #ef4444; color: white; }
-        .entity-url { background-color: #8b5cf6; color: white; }
-        .entity-cve { background-color: #f59e0b; color: white; }
-        .entity-org { background-color: #10b981; color: white; }
-        .entity-per { background-color: #f97316; color: white; }
-        
-        .threat-high { color: #dc2626; }
-        .threat-medium { color: #d97706; }
-        .threat-low { color: #16a34a; }
-        
-        .loading-spinner {
-            display: none;
-        }
-        
-        .loading .loading-spinner {
-            display: inline-block;
-        }
-        
-        .result-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .confidence-bar {
-            height: 8px;
-            border-radius: 4px;
-            background: #e5e7eb;
-            overflow: hidden;
-        }
-        
-        .confidence-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ef4444, #f59e0b, #16a34a);
-            transition: width 0.3s ease;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .example-btn {
-            background: none;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 8px 12px;
-            margin: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .example-btn:hover {
-            border-color: var(--primary-color);
-            background: #f0f9ff;
-        }
+      :root {
+        --primary-color: #2563eb;
+        --success-color: #16a34a;
+        --warning-color: #d97706;
+        --danger-color: #dc2626;
+        --dark-color: #1f2937;
+      }
+
+      body {
+        background-color: #f8fafc;
+        font-family: "Inter", sans-serif;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          #1d4ed8 100%
+        );
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .analysis-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .entity-badge {
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.85em;
+        margin: 2px;
+        display: inline-block;
+      }
+
+      .entity-ip {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .entity-email {
+        background-color: #ef4444;
+        color: white;
+      }
+      .entity-url {
+        background-color: #8b5cf6;
+        color: white;
+      }
+      .entity-cve {
+        background-color: #f59e0b;
+        color: white;
+      }
+      .entity-org {
+        background-color: #10b981;
+        color: white;
+      }
+      .entity-per {
+        background-color: #f97316;
+        color: white;
+      }
+
+      .threat-high {
+        color: #dc2626;
+      }
+      .threat-medium {
+        color: #d97706;
+      }
+      .threat-low {
+        color: #16a34a;
+      }
+
+      .loading-spinner {
+        display: none;
+      }
+
+      .loading .loading-spinner {
+        display: inline-block;
+      }
+
+      .result-container {
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
+      .confidence-bar {
+        height: 8px;
+        border-radius: 4px;
+        background: #e5e7eb;
+        overflow: hidden;
+      }
+
+      .confidence-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ef4444, #f59e0b, #16a34a);
+        transition: width 0.3s ease;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .example-btn {
+        background: none;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 8px 12px;
+        margin: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .example-btn:hover {
+        border-color: var(--primary-color);
+        background: #f0f9ff;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-shield-alt me-2"></i>
-                CTI-NLP Dashboard
-            </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text">
-                    <i class="fas fa-circle text-success me-1"></i>
-                    System Online
-                </span>
-            </div>
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="fas fa-shield-alt me-2"></i>
+          CTI-NLP Dashboard
+        </a>
+        <div class="navbar-nav ms-auto">
+          <span class="navbar-text">
+            <i class="fas fa-circle text-success me-1"></i>
+            System Online
+          </span>
         </div>
+      </div>
     </nav>
 
     <div class="container mt-4">
-        <!-- Stats Overview -->
-        <div class="stats-grid">
-            <div class="card stat-card">
-                <div class="stat-number text-primary" id="total-analyses">0</div>
-                <div class="text-muted">Total Analyses</div>
+      <!-- Stats Overview -->
+      <div class="stats-grid">
+        <div class="card stat-card">
+          <div class="stat-number text-primary" id="total-analyses">0</div>
+          <div class="text-muted">Total Analyses</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number text-success" id="avg-time">0ms</div>
+          <div class="text-muted">Avg Response Time</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number text-warning" id="threats-detected">0</div>
+          <div class="text-muted">Threats Detected</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number text-info" id="entities-found">0</div>
+          <div class="text-muted">Entities Extracted</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Analysis Input -->
+        <div class="col-lg-6">
+          <div class="card analysis-card mb-4">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-search me-2"></i>
+                Threat Analysis
+              </h5>
             </div>
-            <div class="card stat-card">
-                <div class="stat-number text-success" id="avg-time">0ms</div>
-                <div class="text-muted">Avg Response Time</div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="threat-text" class="form-label"
+                  >Enter threat description:</label
+                >
+                <textarea
+                  class="form-control"
+                  id="threat-text"
+                  rows="4"
+                  placeholder="Enter cybersecurity threat description here..."
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="include-entities"
+                    checked
+                  />
+                  <label class="form-check-label" for="include-entities"
+                    >Entity Extraction</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="include-classification"
+                    checked
+                  />
+                  <label class="form-check-label" for="include-classification"
+                    >Classification</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="include-severity"
+                    checked
+                  />
+                  <label class="form-check-label" for="include-severity"
+                    >Severity Analysis</label
+                  >
+                </div>
+              </div>
+
+              <button class="btn btn-light btn-lg w-100" id="analyze-btn">
+                <span
+                  class="loading-spinner spinner-border spinner-border-sm me-2"
+                ></span>
+                <i class="fas fa-brain me-2"></i>
+                Analyze Threat
+              </button>
             </div>
-            <div class="card stat-card">
-                <div class="stat-number text-warning" id="threats-detected">0</div>
-                <div class="text-muted">Threats Detected</div>
+          </div>
+
+          <!-- Example Threats -->
+          <div class="card">
+            <div class="card-header">
+              <h6 class="card-title mb-0">
+                <i class="fas fa-lightbulb me-2"></i>
+                Example Threats
+              </h6>
             </div>
-            <div class="card stat-card">
-                <div class="stat-number text-info" id="entities-found">0</div>
-                <div class="text-muted">Entities Extracted</div>
+            <div class="card-body">
+              <div class="d-flex flex-wrap" id="example-container">
+                <!-- Examples will be loaded here -->
+              </div>
             </div>
+          </div>
         </div>
 
-        <div class="row">
-            <!-- Analysis Input -->
-            <div class="col-lg-6">
-                <div class="card analysis-card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-search me-2"></i>
-                            Threat Analysis
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="threat-text" class="form-label">Enter threat description:</label>
-                            <textarea class="form-control" id="threat-text" rows="4" 
-                                placeholder="Enter cybersecurity threat description here..."></textarea>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="include-entities" checked>
-                                <label class="form-check-label" for="include-entities">Entity Extraction</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="include-classification" checked>
-                                <label class="form-check-label" for="include-classification">Classification</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="include-severity" checked>
-                                <label class="form-check-label" for="include-severity">Severity Analysis</label>
-                            </div>
-                        </div>
-                        
-                        <button class="btn btn-light btn-lg w-100" id="analyze-btn">
-                            <span class="loading-spinner spinner-border spinner-border-sm me-2"></span>
-                            <i class="fas fa-brain me-2"></i>
-                            Analyze Threat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Example Threats -->
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="card-title mb-0">
-                            <i class="fas fa-lightbulb me-2"></i>
-                            Example Threats
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap" id="example-container">
-                            <!-- Examples will be loaded here -->
-                        </div>
-                    </div>
-                </div>
+        <!-- Results Panel -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-chart-line me-2"></i>
+                Analysis Results
+              </h5>
             </div>
-
-            <!-- Results Panel -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-chart-line me-2"></i>
-                            Analysis Results
-                        </h5>
-                    </div>
-                    <div class="card-body result-container" id="results-container">
-                        <div class="text-center text-muted py-5">
-                            <i class="fas fa-search fa-3x mb-3 opacity-50"></i>
-                            <p>Enter a threat description to see analysis results</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-body result-container" id="results-container">
+              <div class="text-center text-muted py-5">
+                <i class="fas fa-search fa-3x mb-3 opacity-50"></i>
+                <p>Enter a threat description to see analysis results</p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Analysis History -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-history me-2"></i>
-                            Analysis History
-                        </h5>
-                        <button class="btn btn-outline-primary btn-sm" id="clear-history">
-                            <i class="fas fa-trash me-1"></i>
-                            Clear History
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div id="history-container">
-                            <div class="text-center text-muted py-3">
-                                <i class="fas fa-clock fa-2x mb-2 opacity-50"></i>
-                                <p>No analysis history yet</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <!-- Analysis History -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+            >
+              <h5 class="card-title mb-0">
+                <i class="fas fa-history me-2"></i>
+                Analysis History
+              </h5>
+              <button class="btn btn-outline-primary btn-sm" id="clear-history">
+                <i class="fas fa-trash me-1"></i>
+                Clear History
+              </button>
             </div>
+            <div class="card-body">
+              <div id="history-container">
+                <div class="text-center text-muted py-3">
+                  <i class="fas fa-clock fa-2x mb-2 opacity-50"></i>
+                  <p>No analysis history yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        class CTIDashboard {
-            constructor() {
-                this.apiBase = 'http://localhost:8000';
-                this.history = JSON.parse(localStorage.getItem('cti-history') || '[]');
-                this.stats = { totalAnalyses: 0, avgTime: 0, threatsDetected: 0, entitiesFound: 0 };
-                this.init();
-            }
+      class CTIDashboard {
+        constructor() {
+          this.apiBase = "http://localhost:8000";
+          this.history = JSON.parse(
+            localStorage.getItem("cti-history") || "[]"
+          );
+          this.stats = {
+            totalAnalyses: 0,
+            avgTime: 0,
+            threatsDetected: 0,
+            entitiesFound: 0,
+          };
+          this.init();
+        }
 
-            init() {
-                this.loadExamples();
-                this.bindEvents();
-                this.updateStats();
-                this.renderHistory();
-                this.checkAPIHealth();
-            }
+        init() {
+          this.loadExamples();
+          this.bindEvents();
+          this.updateStats();
+          this.renderHistory();
+          this.checkAPIHealth();
+        }
 
-            bindEvents() {
-                document.getElementById('analyze-btn').addEventListener('click', () => this.analyzeText());
-                document.getElementById('clear-history').addEventListener('click', () => this.clearHistory());
-                
-                // Enter key to analyze
-                document.getElementById('threat-text').addEventListener('keydown', (e) => {
-                    if (e.ctrlKey && e.key === 'Enter') {
-                        this.analyzeText();
-                    }
-                });
-            }
+        bindEvents() {
+          document
+            .getElementById("analyze-btn")
+            .addEventListener("click", () => this.analyzeText());
+          document
+            .getElementById("clear-history")
+            .addEventListener("click", () => this.clearHistory());
 
-            async checkAPIHealth() {
-                try {
-                    const response = await fetch(`${this.apiBase}/health`);
-                    const health = await response.json();
-                    
-                    const statusEl = document.querySelector('.navbar-text');
-                    if (health.models_loaded) {
-                        statusEl.innerHTML = '<i class="fas fa-circle text-success me-1"></i>Models Ready';
-                    } else {
-                        statusEl.innerHTML = '<i class="fas fa-circle text-warning me-1"></i>Models Loading';
-                    }
-                } catch (error) {
-                    const statusEl = document.querySelector('.navbar-text');
-                    statusEl.innerHTML = '<i class="fas fa-circle text-danger me-1"></i>API Offline';
-                }
-            }
+          // Enter key to analyze
+          document
+            .getElementById("threat-text")
+            .addEventListener("keydown", (e) => {
+              if (e.ctrlKey && e.key === "Enter") {
+                this.analyzeText();
+              }
+            });
+        }
 
-            async loadExamples() {
-                try {
-                    const response = await fetch(`${this.apiBase}/examples`);
-                    const data = await response.json();
-                    
-                    const container = document.getElementById('example-container');
-                    container.innerHTML = data.examples.map(example => 
-                        `<button class="example-btn" data-text="${example.text}">
+        async checkAPIHealth() {
+          try {
+            const response = await fetch(`${this.apiBase}/health`);
+            const health = await response.json();
+
+            const statusEl = document.querySelector(".navbar-text");
+            if (health.models_loaded) {
+              statusEl.innerHTML =
+                '<i class="fas fa-circle text-success me-1"></i>Models Ready';
+            } else {
+              statusEl.innerHTML =
+                '<i class="fas fa-circle text-warning me-1"></i>Models Loading';
+            }
+          } catch (error) {
+            const statusEl = document.querySelector(".navbar-text");
+            statusEl.innerHTML =
+              '<i class="fas fa-circle text-danger me-1"></i>API Offline';
+          }
+        }
+
+        async loadExamples() {
+          try {
+            const response = await fetch(`${this.apiBase}/examples`);
+            const data = await response.json();
+
+            const container = document.getElementById("example-container");
+            container.innerHTML = data.examples
+              .map(
+                (example) =>
+                  `<button class="example-btn" data-text="${example.text}">
                             ${example.text.substring(0, 40)}...
                         </button>`
-                    ).join('');
-                    
-                    // Bind example clicks
-                    container.querySelectorAll('.example-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            document.getElementById('threat-text').value = btn.dataset.text;
-                        });
-                    });
-                } catch (error) {
-                    console.error('Failed to load examples:', error);
-                }
+              )
+              .join("");
+
+            // Bind example clicks
+            container.querySelectorAll(".example-btn").forEach((btn) => {
+              btn.addEventListener("click", () => {
+                document.getElementById("threat-text").value = btn.dataset.text;
+              });
+            });
+          } catch (error) {
+            console.error("Failed to load examples:", error);
+          }
+        }
+
+        async analyzeText() {
+          const text = document.getElementById("threat-text").value.trim();
+          if (!text) {
+            alert("Please enter a threat description");
+            return;
+          }
+
+          const analyzeBtn = document.getElementById("analyze-btn");
+          analyzeBtn.classList.add("loading");
+          analyzeBtn.disabled = true;
+
+          try {
+            const startTime = Date.now();
+
+            const response = await fetch(`${this.apiBase}/analyze`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                text: text,
+                include_entities:
+                  document.getElementById("include-entities").checked,
+                include_classification: document.getElementById(
+                  "include-classification"
+                ).checked,
+                include_severity:
+                  document.getElementById("include-severity").checked,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error(
+                `HTTP ${response.status}: ${response.statusText}`
+              );
             }
 
-            async analyzeText() {
-                const text = document.getElementById('threat-text').value.trim();
-                if (!text) {
-                    alert('Please enter a threat description');
-                    return;
-                }
+            const result = await response.json();
+            const processingTime = Date.now() - startTime;
 
-                const analyzeBtn = document.getElementById('analyze-btn');
-                analyzeBtn.classList.add('loading');
-                analyzeBtn.disabled = true;
+            this.displayResults(result);
+            this.addToHistory(text, result, processingTime);
+            this.updateStats();
+          } catch (error) {
+            console.error("Analysis failed:", error);
+            this.displayError(error.message);
+          } finally {
+            analyzeBtn.classList.remove("loading");
+            analyzeBtn.disabled = false;
+          }
+        }
 
-                try {
-                    const startTime = Date.now();
-                    
-                    const response = await fetch(`${this.apiBase}/analyze`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            text: text,
-                            include_entities: document.getElementById('include-entities').checked,
-                            include_classification: document.getElementById('include-classification').checked,
-                            include_severity: document.getElementById('include-severity').checked
-                        })
-                    });
+        displayResults(result) {
+          const container = document.getElementById("results-container");
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    const processingTime = Date.now() - startTime;
-                    
-                    this.displayResults(result);
-                    this.addToHistory(text, result, processingTime);
-                    this.updateStats();
-
-                } catch (error) {
-                    console.error('Analysis failed:', error);
-                    this.displayError(error.message);
-                } finally {
-                    analyzeBtn.classList.remove('loading');
-                    analyzeBtn.disabled = false;
-                }
-            }
-
-            displayResults(result) {
-                const container = document.getElementById('results-container');
-                
-                let html = `
+          let html = `
                     <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="mb-0">Processing Time</h6>
-                            <span class="badge bg-info">${result.processing_time_ms.toFixed(1)}ms</span>
+                            <span class="badge bg-info">${result.processing_time_ms.toFixed(
+                              1
+                            )}ms</span>
                         </div>
                     </div>
                 `;
 
-                // Classification Results
-                if (result.classification) {
-                    const conf = result.classification.confidence;
-                    html += `
+          // Classification Results
+          if (result.classification) {
+            const conf = result.classification.confidence;
+            html += `
                         <div class="mb-4">
                             <h6><i class="fas fa-tag me-2"></i>Threat Classification</h6>
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold">${result.classification.predicted_class}</span>
-                                <span class="badge bg-primary">${(conf * 100).toFixed(1)}%</span>
+                                <span class="fw-bold">${
+                                  result.classification.predicted_class
+                                }</span>
+                                <span class="badge bg-primary">${(
+                                  conf * 100
+                                ).toFixed(1)}%</span>
                             </div>
                             <div class="confidence-bar">
-                                <div class="confidence-fill" style="width: ${conf * 100}%"></div>
+                                <div class="confidence-fill" style="width: ${
+                                  conf * 100
+                                }%"></div>
                             </div>
                         </div>
                     `;
-                }
+          }
 
-                // Severity Results
-                if (result.severity) {
-                    const riskClass = result.severity.risk_level >= 4 ? 'danger' : 
-                                     result.severity.risk_level >= 3 ? 'warning' : 'success';
-                    html += `
+          // Severity Results
+          if (result.severity) {
+            const riskClass =
+              result.severity.risk_level >= 4
+                ? "danger"
+                : result.severity.risk_level >= 3
+                ? "warning"
+                : "success";
+            html += `
                         <div class="mb-4">
                             <h6><i class="fas fa-exclamation-triangle me-2"></i>Risk Assessment</h6>
                             <div class="d-flex justify-content-between align-items-center">
@@ -418,113 +519,143 @@
                             </div>
                         </div>
                     `;
-                }
+          }
 
-                // Entity Results
-                if (result.entities && result.entities.length > 0) {
-                    html += `
+          // Entity Results
+          if (result.entities && result.entities.length > 0) {
+            html += `
                         <div class="mb-4">
                             <h6><i class="fas fa-search me-2"></i>Extracted Entities</h6>
                             <div>
-                                ${result.entities.map(entity => 
-                                    `<span class="entity-badge entity-${entity.label.toLowerCase()}" 
-                                           title="Confidence: ${(entity.confidence * 100).toFixed(1)}%">
+                                ${result.entities
+                                  .map(
+                                    (entity) =>
+                                      `<span class="entity-badge entity-${entity.label.toLowerCase()}" 
+                                           title="Confidence: ${(
+                                             entity.confidence * 100
+                                           ).toFixed(1)}%">
                                         ${entity.text}
                                     </span>`
-                                ).join('')}
+                                  )
+                                  .join("")}
                             </div>
                         </div>
                     `;
-                }
+          }
 
-                container.innerHTML = html;
-            }
+          container.innerHTML = html;
+        }
 
-            displayError(message) {
-                const container = document.getElementById('results-container');
-                container.innerHTML = `
+        displayError(message) {
+          const container = document.getElementById("results-container");
+          container.innerHTML = `
                     <div class="alert alert-danger" role="alert">
                         <i class="fas fa-exclamation-triangle me-2"></i>
                         <strong>Analysis Failed:</strong> ${message}
                     </div>
                 `;
-            }
+        }
 
-            addToHistory(text, result, processingTime) {
-                const historyItem = {
-                    id: Date.now(),
-                    timestamp: new Date().toISOString(),
-                    text: text.substring(0, 100) + (text.length > 100 ? '...' : ''),
-                    result: result,
-                    processingTime: processingTime
-                };
+        addToHistory(text, result, processingTime) {
+          const historyItem = {
+            id: Date.now(),
+            timestamp: new Date().toISOString(),
+            text: text.substring(0, 100) + (text.length > 100 ? "..." : ""),
+            result: result,
+            processingTime: processingTime,
+          };
 
-                this.history.unshift(historyItem);
-                this.history = this.history.slice(0, 50); // Keep only last 50
-                localStorage.setItem('cti-history', JSON.stringify(this.history));
-                this.renderHistory();
-            }
+          this.history.unshift(historyItem);
+          this.history = this.history.slice(0, 50); // Keep only last 50
+          localStorage.setItem("cti-history", JSON.stringify(this.history));
+          this.renderHistory();
+        }
 
-            renderHistory() {
-                const container = document.getElementById('history-container');
-                
-                if (this.history.length === 0) {
-                    container.innerHTML = `
+        renderHistory() {
+          const container = document.getElementById("history-container");
+
+          if (this.history.length === 0) {
+            container.innerHTML = `
                         <div class="text-center text-muted py-3">
                             <i class="fas fa-clock fa-2x mb-2 opacity-50"></i>
                             <p>No analysis history yet</p>
                         </div>
                     `;
-                    return;
-                }
+            return;
+          }
 
-                container.innerHTML = this.history.map(item => `
+          container.innerHTML = this.history
+            .map(
+              (item) => `
                     <div class="border-bottom pb-2 mb-2">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="flex-grow-1">
-                                <div class="text-muted small">${new Date(item.timestamp).toLocaleString()}</div>
+                                <div class="text-muted small">${new Date(
+                                  item.timestamp
+                                ).toLocaleString()}</div>
                                 <div class="mt-1">${item.text}</div>
-                                ${item.result.classification ? 
-                                    `<span class="badge bg-secondary mt-1">${item.result.classification.predicted_class}</span>` : ''
+                                ${
+                                  item.result.classification
+                                    ? `<span class="badge bg-secondary mt-1">${item.result.classification.predicted_class}</span>`
+                                    : ""
                                 }
                             </div>
-                            <div class="text-muted small">${item.processingTime}ms</div>
+                            <div class="text-muted small">${
+                              item.processingTime
+                            }ms</div>
                         </div>
                     </div>
-                `).join('');
-            }
-
-            clearHistory() {
-                if (confirm('Clear all analysis history?')) {
-                    this.history = [];
-                    localStorage.removeItem('cti-history');
-                    this.renderHistory();
-                    this.updateStats();
-                }
-            }
-
-            updateStats() {
-                this.stats.totalAnalyses = this.history.length;
-                this.stats.avgTime = this.history.length > 0 ? 
-                    Math.round(this.history.reduce((sum, item) => sum + item.processingTime, 0) / this.history.length) : 0;
-                this.stats.threatsDetected = this.history.filter(item => 
-                    item.result.classification && item.result.classification.predicted_class !== 'Benign'
-                ).length;
-                this.stats.entitiesFound = this.history.reduce((sum, item) => 
-                    sum + (item.result.entities ? item.result.entities.length : 0), 0
-                );
-
-                document.getElementById('total-analyses').textContent = this.stats.totalAnalyses;
-                document.getElementById('avg-time').textContent = this.stats.avgTime + 'ms';
-                document.getElementById('threats-detected').textContent = this.stats.threatsDetected;
-                document.getElementById('entities-found').textContent = this.stats.entitiesFound;
-            }
+                `
+            )
+            .join("");
         }
 
-        // Initialize dashboard when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new CTIDashboard();
-        });
+        clearHistory() {
+          if (confirm("Clear all analysis history?")) {
+            this.history = [];
+            localStorage.removeItem("cti-history");
+            this.renderHistory();
+            this.updateStats();
+          }
+        }
+
+        updateStats() {
+          this.stats.totalAnalyses = this.history.length;
+          this.stats.avgTime =
+            this.history.length > 0
+              ? Math.round(
+                  this.history.reduce(
+                    (sum, item) => sum + item.processingTime,
+                    0
+                  ) / this.history.length
+                )
+              : 0;
+          this.stats.threatsDetected = this.history.filter(
+            (item) =>
+              item.result.classification &&
+              item.result.classification.predicted_class !== "Benign"
+          ).length;
+          this.stats.entitiesFound = this.history.reduce(
+            (sum, item) =>
+              sum + (item.result.entities ? item.result.entities.length : 0),
+            0
+          );
+
+          document.getElementById("total-analyses").textContent =
+            this.stats.totalAnalyses;
+          document.getElementById("avg-time").textContent =
+            this.stats.avgTime + "ms";
+          document.getElementById("threats-detected").textContent =
+            this.stats.threatsDetected;
+          document.getElementById("entities-found").textContent =
+            this.stats.entitiesFound;
+        }
+      }
+
+      // Initialize dashboard when page loads
+      document.addEventListener("DOMContentLoaded", () => {
+        new CTIDashboard();
+      });
     </script>
-</body>
+  </body>
 </html>
